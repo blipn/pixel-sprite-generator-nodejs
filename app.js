@@ -1,4 +1,3 @@
-const fs = require('fs');
 const psg = require('./psg.js');
 
 var SPRITE_COUNT = 1;
