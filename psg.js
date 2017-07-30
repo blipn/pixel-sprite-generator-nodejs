@@ -423,10 +423,6 @@
         });
 
 
-
-        //console.log(this.pixels);
-
-        //this.ctx.drawImage(img, 0, 0);
     };
 
 
