@@ -68,7 +68,7 @@
         this.options = options || {};
 
         var defaults = {
-            colored         : false,
+            colored         : true,
             edgeBrightness  : 0.3,
             colorVariations : 0.1,
             brightnessNoise : 0.2,
@@ -404,19 +404,25 @@
                 this.pixels.data[index + 3] = 255;
 
                 //
-                image.setAt(u, v, { red:rgb.r * 255, green:rgb.g * 255, blue:rgb.b * 255, alpha:100 });
+                if(isVerticalGradient){
+                    image.setAt(v, u, { red:rgb.r * 255, green:rgb.g * 255, blue:rgb.b * 255, alpha:255 });
+                }else{
+                    image.setAt(u, v, { red:rgb.r * 255, green:rgb.g * 255, blue:rgb.b * 255, alpha:255 });
+                }
                 //
             }
 
         }
 
-        // Get low level image object with buffer from the 'pngjs' package
-        //var pngjs = image.getImage();
+        const uuidv1 = require('uuid/v1');
+        this.uid = uuidv1();
 
-        image.writeImage('out.png', function (err) {
+        image.writeImage('img/'+this.uid+'.png', function (err) {
             if (err) throw err;
             console.log('Written to the file');
         });
+
+
 
         //console.log(this.pixels);
 
@@ -485,10 +491,5 @@
         Sprite: Sprite,
         Mask: Mask
     };
-
-    // Export psg module
-    //root.psg = psg;
-
-//})(window);
 
 module.exports = psg;
