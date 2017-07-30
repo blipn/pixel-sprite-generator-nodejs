@@ -1,6 +1,6 @@
 const psg = require('./psg.js');
 
-const SPRITE_COUNT = 5;
+let SPRITE_COUNT = 5;
 
 const spaceship = new psg.Mask([
     0, 0, 0, 0, 0, 0,
@@ -65,12 +65,8 @@ const empty = new psg.Mask([
 /**
  * Crée une image de créature
  */
-exports.createCreature = function () {
-    let i, sprite;
-    for (i = 0; i < SPRITE_COUNT; i++) {
-        sprite = new psg.Sprite(creatures, {
-            colored         : true
-        });
-        console.log(sprite.uid+" created.");
-    }
+exports.createCreature = function (callback) {
+    let sprite = new psg.Sprite(creatures, {
+        colored         : true
+    }, callback);
 };

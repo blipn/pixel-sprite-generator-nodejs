@@ -59,7 +59,7 @@
     *   @param {options} 
     *   @constructor
     */
-    function Sprite(mask, options) {
+    function Sprite(mask, options, callback) {
         this.width     = mask.width * (mask.mirrorX ? 2 : 1);
         this.height    = mask.height * (mask.mirrorY ? 2 : 1);
         this.mask      = mask;
@@ -91,7 +91,7 @@
             }
         }
 
-        this.init();
+        this.init(callback);
     }
 
 
@@ -101,7 +101,7 @@
     *   @method init
     *   @returns {undefined}
     */
-    Sprite.prototype.init = function() {
+    Sprite.prototype.init = function(callback) {
         this.initCanvas();
         this.initContext();
         this.initData();
@@ -118,7 +118,7 @@
         }
 
         this.generateEdges();
-        this.renderPixelData();
+        this.renderPixelData(callback);
     };
 
     /**
@@ -330,7 +330,7 @@
     *   @method renderPixelData
     *   @returns {undefined}
     */
-    Sprite.prototype.renderPixelData = function() {
+    Sprite.prototype.renderPixelData = function(callback) {
         //
         var PNGImage = require('pngjs-image');
         var image = PNGImage.createImage(this.width, this.height);
@@ -416,10 +416,12 @@
 
         const uuidv1 = require('uuid/v1');
         this.uid = uuidv1();
+        let thisObject = this;
 
         image.writeImage('img/'+this.uid+'.png', function (err) {
             if (err) throw err;
-            console.log('Written to the file');
+            console.log(thisObject.uid+" created and written to the file.");
+            callback(thisObject.uid);
         });
 
 

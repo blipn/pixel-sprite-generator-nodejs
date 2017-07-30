@@ -6,10 +6,12 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+
 app.use(express.static('img'));
+
 app.get('/', function (req, res) {
 
-    pixelMaker.createCreature();
+    //pixelMaker.createCreature();
 
     let imageDir = './img/';
 
@@ -27,12 +29,20 @@ app.get('/', function (req, res) {
     }
 
     getImages(imageDir, function (err, files) {
-        let imageLists = '<body>';
+        let imageLists = '';
         for (let i=0; i<files.length; i++) {
             imageLists += '<img src="'+files[i]+'" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" height="50" width="50">';
         }
-        imageLists += '</body>';
+        imageLists += '';
         res.send(imageLists);
+    });
+
+});
+
+app.get('/creature', function (req, res) {
+
+    pixelMaker.createCreature(function (name) {
+        res.send('<img src="'+name+'.png" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" height="50" width="50">');
     });
 
 });
