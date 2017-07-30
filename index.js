@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
     getImages(imageDir, function (err, files) {
         let imageLists = '';
         for (let i=0; i<files.length; i++) {
-            imageLists += '<img src="'+files[i]+'" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" height="50" width="50">';
+            imageLists += '<img src="'+files[i]+'" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" width="50">';
         }
         imageLists += '';
         res.send(imageLists);
@@ -42,7 +42,7 @@ app.get('/', function (req, res) {
 app.get('/creature', function (req, res) {
 
     pixelMaker.createCreature(function (name) {
-        res.send('<img src="'+name+'.png" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" height="50" width="50">');
+        res.send('<img src="'+name+'.png" alt="Avatar" style="image-rendering: pixelated; margin: 2px;" width="50">');
     });
 
 });
