@@ -15,10 +15,12 @@ https://github.com/Automattic/node-canvas
 Usage : 
 
 ```javascript
-const pixelMaker = require('./pixel-sprite-generator-nodejs');
+const pixelMaker = require('pixel-sprite-generator-nodejs');
 
 pixelMaker.createCreature(function (name) {
-    console.log("file "+name+" created in the module img/ folder");
+    console.log("file "+name+" created in your app root folder");
 });
 
 ```
+
+* You can change the output directory in psg.js : line 422

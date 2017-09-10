@@ -418,7 +418,11 @@
         this.uid = uuidv1();
         let thisObject = this;
 
-        image.writeImage('img/'+this.uid+'.png', function (err) {
+        //You can change the directory here
+        let directory = './';
+        let imageName = this.uid+'.png';
+
+        image.writeImage(directory+imageName, function (err) {
             if (err) throw err;
             console.log(thisObject.uid+" created and written to the file.");
             callback(thisObject.uid);
