@@ -3,6 +3,8 @@ Create procedural 2D creatures in .png files.
 
 Adaptation of this front javascript app for nodejs : https://github.com/zfedoran/pixel-sprite-generator
 
+![alt text](https://raw.githubusercontent.com/blipn/pixel-sprite-generator-nodejs/master/exemple.png)
+
 --- 
 
 ```bash
