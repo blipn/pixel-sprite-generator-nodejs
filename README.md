@@ -10,7 +10,7 @@ Adaptation of this front javascript app for nodejs : https://github.com/zfedoran
 ```bash
 npm install pixel-sprite-generator-nodejs
 ```
-### /!\ Follow [theses instructions](https://github.com/Automattic/node-canvas) for the Canvas module required /!\
+### /!\ Follow [theses instructions](https://github.com/Automattic/node-canvas) for the required Canvas module /!\
 https://github.com/Automattic/node-canvas
 
 ---
