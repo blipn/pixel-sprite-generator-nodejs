@@ -4,7 +4,7 @@ node_js:
   - '10'
 branches:
   only:
-    - V1
+    - master
 cache:
   npm: true
 os:

@@ -1,3 +1,7 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-prototype-builtins */
+
 /**
  * Pixel Sprite Generator v0.0.2
  *
@@ -33,12 +37,12 @@
  *   @param {mirrorX} A boolean describing whether the mask should be mirrored on the x axis
  *   @param {mirrorY} A boolean describing whether the mask should be mirrored on the y axis
  */
-function Mask(data, width, height, mirrorX, mirrorY) {
-    this.width   = width;
-    this.height  = height;
-    this.data    = data;
-    this.mirrorX = typeof mirrorX !== 'undefined' ? mirrorX : true;
-    this.mirrorY = typeof mirrorY !== 'undefined' ? mirrorY : true;
+function Mask (data, width, height, mirrorX, mirrorY) {
+  this.width = width
+  this.height = height
+  this.data = data
+  this.mirrorX = typeof mirrorX !== 'undefined' ? mirrorX : true
+  this.mirrorY = typeof mirrorY !== 'undefined' ? mirrorY : true
 }
 
 /**
@@ -55,46 +59,44 @@ function Mask(data, width, height, mirrorX, mirrorY) {
 *
 *   @class Sprite
 *   @param {mask}
-*   @param {options} 
+*   @param {options}
 *   @param {output} // output dir
 *   @constructor
 */
-function Sprite(mask, options, output, callback) {
-    this.width     = mask.width * (mask.mirrorX ? 2 : 1);
-    this.height    = mask.height * (mask.mirrorY ? 2 : 1);
-    this.mask      = mask;
-    this.output    = output;
-    this.data      = new Array(this.width * this.height);
+function Sprite (mask, options, output, callback) {
+  this.width = mask.width * (mask.mirrorX ? 2 : 1)
+  this.height = mask.height * (mask.mirrorY ? 2 : 1)
+  this.mask = mask
+  this.output = output
+  this.data = new Array(this.width * this.height)
 
-    this.options = options || {};
+  this.options = options || {}
 
-    var defaults = {
-        colored         : true,
-        edgeBrightness  : 0.3,
-        colorVariations : 0.1,
-        brightnessNoise : 0.2,
-        saturation      : 0.8
-    };
+  var defaults = {
+    colored: true,
+    edgeBrightness: 0.3,
+    colorVariations: 0.1,
+    brightnessNoise: 0.2,
+    saturation: 0.8
+  }
 
-    // Set default options
-    for (var prop in defaults) {
-        if (defaults.hasOwnProperty(prop)) {
-            var val = this.options[prop];
+  // Set default options
+  for (var prop in defaults) {
+    if (defaults.hasOwnProperty(prop)) {
+      var val = this.options[prop]
 
-            // If the option was not provided
-            if (typeof val === 'undefined') {
+      // If the option was not provided
+      if (typeof val === 'undefined') {
+        // Set it to the default value
+        val = defaults[prop]
+      }
 
-                // Set it to the default value
-                val = defaults[prop];
-            }
-
-            this.options[prop] = val;
-        }
+      this.options[prop] = val
     }
+  }
 
-    this.init(callback);
+  this.init(callback)
 }
-
 
 /**
 *   The init method calls all functions required to generate the sprite.
@@ -102,25 +104,25 @@ function Sprite(mask, options, output, callback) {
 *   @method init
 *   @returns {undefined}
 */
-Sprite.prototype.init = function(callback) {
-    this.initCanvas();
-    this.initContext();
-    this.initData();
+Sprite.prototype.init = function (callback) {
+  this.initCanvas()
+  this.initContext()
+  this.initData()
 
-    this.applyMask();
-    this.generateRandomSample();
+  this.applyMask()
+  this.generateRandomSample()
 
-    if (this.mask.mirrorX) {
-        this.mirrorX();
-    }
+  if (this.mask.mirrorX) {
+    this.mirrorX()
+  }
 
-    if (this.mask.mirrorY) {
-        this.mirrorY();
-    }
+  if (this.mask.mirrorY) {
+    this.mirrorY()
+  }
 
-    this.generateEdges();
-    this.renderPixelData(callback);
-};
+  this.generateEdges()
+  this.renderPixelData(callback)
+}
 
 /**
 *   The initCanvas method creates a HTML canvas element for internal use.
@@ -130,22 +132,22 @@ Sprite.prototype.init = function(callback) {
 *   @method initCanvas
 *   @returns {undefined}
 */
-Sprite.prototype.initCanvas = function() {
-    var Canvas = require('canvas');
-    this.canvas = Canvas.createCanvas(this.width, this.height);
-};
+Sprite.prototype.initCanvas = function () {
+  var Canvas = require('canvas')
+  this.canvas = Canvas.createCanvas(this.width, this.height)
+}
 
 /**
 *   The initContext method requests a CanvasRenderingContext2D from the
 *   internal canvas object.
 *
-*   @method 
+*   @method
 *   @returns {undefined}
 */
-Sprite.prototype.initContext = function() {
-    this.ctx    = this.canvas.getContext('2d');
-    this.pixels = this.ctx.createImageData(this.width, this.height);
-};
+Sprite.prototype.initContext = function () {
+  this.ctx = this.canvas.getContext('2d')
+  this.pixels = this.ctx.createImageData(this.width, this.height)
+}
 
 /**
 *   The getData method returns the sprite template data at location (x, y)
@@ -160,9 +162,9 @@ Sprite.prototype.initContext = function() {
 *   @param {y}
 *   @returns {undefined}
 */
-Sprite.prototype.getData = function(x, y) {
-    return this.data[y * this.width + x];
-};
+Sprite.prototype.getData = function (x, y) {
+  return this.data[y * this.width + x]
+}
 
 /**
 *   The setData method sets the sprite template data at location (x, y)
@@ -178,9 +180,9 @@ Sprite.prototype.getData = function(x, y) {
 *   @param {value}
 *   @returns {undefined}
 */
-Sprite.prototype.setData = function(x, y, value) {
-    this.data[y * this.width + x] = value;
-};
+Sprite.prototype.setData = function (x, y, value) {
+  this.data[y * this.width + x] = value
+}
 
 /**
 *   The initData method initializes the sprite data to completely solid.
@@ -188,16 +190,16 @@ Sprite.prototype.setData = function(x, y, value) {
 *   @method initData
 *   @returns {undefined}
 */
-Sprite.prototype.initData = function() {
-    var h = this.height;
-    var w = this.width;
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            this.setData(x, y, -1);
-        }
+Sprite.prototype.initData = function () {
+  var h = this.height
+  var w = this.width
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      this.setData(x, y, -1)
     }
-};
+  }
+}
 
 /**
 *   The mirrorX method mirrors the template data horizontally.
@@ -205,33 +207,33 @@ Sprite.prototype.initData = function() {
 *   @method mirrorX
 *   @returns {undefined}
 */
-Sprite.prototype.mirrorX = function() {
-    var h = this.height;
-    var w = Math.floor(this.width/2);
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            this.setData(this.width - x - 1, y, this.getData(x, y));
-        }
+Sprite.prototype.mirrorX = function () {
+  var h = this.height
+  var w = Math.floor(this.width / 2)
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      this.setData(this.width - x - 1, y, this.getData(x, y))
     }
-};
+  }
+}
 
 /**
 *   The mirrorY method mirrors the template data vertically.
 *
-*   @method 
+*   @method
 *   @returns {undefined}
 */
-Sprite.prototype.mirrorY = function() {
-    var h = Math.floor(this.height/2);
-    var w = this.width;
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            this.setData(x, this.height - y - 1, this.getData(x, y));
-        }
+Sprite.prototype.mirrorY = function () {
+  var h = Math.floor(this.height / 2)
+  var w = this.width
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      this.setData(x, this.height - y - 1, this.getData(x, y))
     }
-};
+  }
+}
 
 /**
 *   The applyMask method copies the mask data into the template data array at
@@ -242,17 +244,17 @@ Sprite.prototype.mirrorY = function() {
 *   @method applyMask
 *   @returns {undefined}
 */
-Sprite.prototype.applyMask = function() {
-    var h = this.mask.height;
-    var w = this.mask.width;
+Sprite.prototype.applyMask = function () {
+  var h = this.mask.height
+  var w = this.mask.width
 
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            this.setData(x, y, this.mask.data[y * w + x]);
-        }
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      this.setData(x, y, this.mask.data[y * w + x])
     }
-};
+  }
+}
 
 /**
 *   Apply a random sample to the sprite template.
@@ -266,29 +268,29 @@ Sprite.prototype.applyMask = function() {
 *   @method generateRandomSample
 *   @returns {undefined}
 */
-Sprite.prototype.generateRandomSample = function() {
-    var h = this.height;
-    var w = this.width;
+Sprite.prototype.generateRandomSample = function () {
+  var h = this.height
+  var w = this.width
 
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            var val = this.getData(x, y);
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      var val = this.getData(x, y)
 
-            if (val === 1) {
-                val = val * Math.round(Math.random());
-            } else if (val === 2) {
-                if (Math.random() > 0.5) {
-                    val = 1;
-                } else {
-                    val = -1;
-                }
-            } 
-
-            this.setData(x, y, val);
+      if (val === 1) {
+        val = val * Math.round(Math.random())
+      } else if (val === 2) {
+        if (Math.random() > 0.5) {
+          val = 1
+        } else {
+          val = -1
         }
+      }
+
+      this.setData(x, y, val)
     }
-};
+  }
+}
 
 /**
 *   This method applies edges to any template location that is positive in
@@ -297,30 +299,30 @@ Sprite.prototype.generateRandomSample = function() {
 *   @method generateEdges
 *   @returns {undefined}
 */
-Sprite.prototype.generateEdges = function() {
-    var h = this.height;
-    var w = this.width;
+Sprite.prototype.generateEdges = function () {
+  var h = this.height
+  var w = this.width
 
-    var x, y;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            if (this.getData(x, y) > 0) {
-                if (y - 1 >= 0 && this.getData(x, y-1) === 0) {
-                    this.setData(x, y-1, -1);
-                }
-                if (y + 1 < this.height && this.getData(x, y+1) === 0) {
-                    this.setData(x, y+1, -1);
-                }
-                if (x - 1 >= 0 && this.getData(x-1, y) === 0) {
-                    this.setData(x-1, y, -1);
-                }
-                if (x + 1 < this.width && this.getData(x+1, y) === 0) {
-                    this.setData(x+1, y, -1);
-                }
-            }
+  var x, y
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      if (this.getData(x, y) > 0) {
+        if (y - 1 >= 0 && this.getData(x, y - 1) === 0) {
+          this.setData(x, y - 1, -1)
         }
+        if (y + 1 < this.height && this.getData(x, y + 1) === 0) {
+          this.setData(x, y + 1, -1)
+        }
+        if (x - 1 >= 0 && this.getData(x - 1, y) === 0) {
+          this.setData(x - 1, y, -1)
+        }
+        if (x + 1 < this.width && this.getData(x + 1, y) === 0) {
+          this.setData(x + 1, y, -1)
+        }
+      }
     }
-};
+  }
+}
 
 /**
 *   This method renders out the template data to a HTML canvas to finally
@@ -329,114 +331,109 @@ Sprite.prototype.generateEdges = function() {
 *   (note: only template locations with the values of -1 (border) are rendered)
 *
 *   @method renderPixelData
-*   @param {output} 
+*   @param {output}
 *   @returns {undefined}
 */
-Sprite.prototype.renderPixelData = function(callback) {
-    //
-    var PNGImage = require('pngjs-image');
-    var image = PNGImage.createImage(this.width, this.height);
-    //
+Sprite.prototype.renderPixelData = function (callback) {
+  //
+  var PNGImage = require('pngjs-image')
+  var image = PNGImage.createImage(this.width, this.height)
+  //
 
-    var isVerticalGradient = Math.random() > 0.5;
-    var saturation         = Math.max(Math.min(Math.random() * this.options.saturation, 1), 0);
-    var hue                = Math.random();
+  var isVerticalGradient = Math.random() > 0.5
+  var saturation = Math.max(Math.min(Math.random() * this.options.saturation, 1), 0)
+  var hue = Math.random()
 
-    var u, v, ulen, vlen;
-    if (isVerticalGradient) {
-        ulen = this.height;
-        vlen = this.width;
-    } else {
-        ulen = this.width;
-        vlen = this.height;
+  var u, v, ulen, vlen
+  if (isVerticalGradient) {
+    ulen = this.height
+    vlen = this.width
+  } else {
+    ulen = this.width
+    vlen = this.height
+  }
+
+  for (u = 0; u < ulen; u++) {
+    // Create a non-uniform random number between 0 and 1 (lower numbers more likely)
+    var isNewColor = Math.abs(((Math.random() * 2 - 1) +
+                                    (Math.random() * 2 - 1) +
+                                    (Math.random() * 2 - 1)) / 3)
+
+    // Only change the color sometimes (values above 0.8 are less likely than others)
+    if (isNewColor > (1 - this.options.colorVariations)) {
+      hue = Math.random()
     }
 
-    for (u = 0; u < ulen; u++) {
-        // Create a non-uniform random number between 0 and 1 (lower numbers more likely)
-        var isNewColor = Math.abs(((Math.random() * 2 - 1) 
-                                    + (Math.random() * 2 - 1) 
-                                    + (Math.random() * 2 - 1)) / 3);
+    for (v = 0; v < vlen; v++) {
+      var val, index
+      if (isVerticalGradient) {
+        val = this.getData(v, u)
+        index = (u * vlen + v) * 4
+      } else {
+        val = this.getData(u, v)
+        index = (v * ulen + u) * 4
+      }
 
-        // Only change the color sometimes (values above 0.8 are less likely than others)
-        if (isNewColor > (1 - this.options.colorVariations)) {
-            hue = Math.random();
+      var rgb = { r: 1, g: 1, b: 1 }
+
+      if (val !== 0) {
+        if (this.options.colored) {
+          // Fade brightness away towards the edges
+          var brightness = Math.sin((u / ulen) * Math.PI) * (1 - this.options.brightnessNoise) +
+                                    Math.random() * this.options.brightnessNoise
+
+          // Get the RGB color value
+          this.hslToRgb(hue, saturation, brightness, /* out */ rgb)
+
+          // If this is an edge, then darken the pixel
+          if (val === -1) {
+            rgb.r *= this.options.edgeBrightness
+            rgb.g *= this.options.edgeBrightness
+            rgb.b *= this.options.edgeBrightness
+          }
+        } else {
+          // Not colored, simply output black
+          if (val === -1) {
+            rgb.r = 0
+            rgb.g = 0
+            rgb.b = 0
+          }
         }
+      }
 
-        for (v = 0; v < vlen; v++) {
-            var val, index;
-            if (isVerticalGradient) {
-                val   = this.getData(v, u);
-                index = (u * vlen + v) * 4;
-            } else {
-                val   = this.getData(u, v);
-                index = (v * ulen + u) * 4;
-            }
+      this.pixels.data[index + 0] = rgb.r * 255
+      this.pixels.data[index + 1] = rgb.g * 255
+      this.pixels.data[index + 2] = rgb.b * 255
+      this.pixels.data[index + 3] = 255
 
-            var rgb = { r: 1, g: 1, b: 1 };
-
-            if (val !== 0) {
-                if (this.options.colored) {
-                    // Fade brightness away towards the edges
-                    var brightness = Math.sin((u / ulen) * Math.PI) * (1 - this.options.brightnessNoise) 
-                                    + Math.random() * this.options.brightnessNoise;
-
-                    // Get the RGB color value
-                    this.hslToRgb(hue, saturation, brightness, /*out*/ rgb);
-
-                    // If this is an edge, then darken the pixel
-                    if (val === -1) {
-                        rgb.r *= this.options.edgeBrightness;
-                        rgb.g *= this.options.edgeBrightness;
-                        rgb.b *= this.options.edgeBrightness;
-                    }
-
-                }  else {
-                    // Not colored, simply output black
-                    if (val === -1) {
-                        rgb.r = 0;
-                        rgb.g = 0;
-                        rgb.b = 0;
-                    }
-                }
-            }
-
-            this.pixels.data[index + 0] = rgb.r * 255;
-            this.pixels.data[index + 1] = rgb.g * 255;
-            this.pixels.data[index + 2] = rgb.b * 255;
-            this.pixels.data[index + 3] = 255;
-
-            //
-            if(isVerticalGradient){
-                image.setAt(v, u, { red:rgb.r * 255, green:rgb.g * 255, blue:rgb.b * 255, alpha:255 });
-            }else{
-                image.setAt(u, v, { red:rgb.r * 255, green:rgb.g * 255, blue:rgb.b * 255, alpha:255 });
-            }
-            //
-        }
-
+      //
+      if (isVerticalGradient) {
+        image.setAt(v, u, { red: rgb.r * 255, green: rgb.g * 255, blue: rgb.b * 255, alpha: 255 })
+      } else {
+        image.setAt(u, v, { red: rgb.r * 255, green: rgb.g * 255, blue: rgb.b * 255, alpha: 255 })
+      }
+      //
     }
+  }
 
-    const fs = require('fs');
-    const uuidv1 = require('uuid/v1');
-    this.uid = uuidv1();
-    let thisObject = this;
+  const fs = require('fs')
+  const uuidv1 = require('uuid/v1')
+  this.uid = uuidv1()
+  const thisObject = this
 
-    let directory = this.output;
-    let imageName = this.uid+'.png';
+  const directory = this.output
+  const imageName = this.uid + '.png'
 
-    if (!fs.existsSync(directory)){
-        fs.mkdirSync(directory);
-    }
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory)
+  }
 
-    image.writeImage(directory+imageName, function (err) {
-        if (err) throw err;
-        console.log(thisObject.uid+" created and written to the file.");
-        callback(thisObject.uid);
-    });
-
-
-};
-
+  image.writeImage(directory + imageName, function (err) {
+    if (err) throw err
+    console.log(thisObject.uid + ' created and written to the file.')
+    callback(thisObject.uid)
+  })
+}
 
 /**
 *   This method converts HSL color values to RGB color values.
@@ -448,29 +445,29 @@ Sprite.prototype.renderPixelData = function(callback) {
 *   @param {result}
 *   @returns {result}
 */
-Sprite.prototype.hslToRgb = function(h, s, l, result) {
-    if (typeof result === 'undefined') {
-        result = { r: 0, g: 0, b: 0 };
-    }
+Sprite.prototype.hslToRgb = function (h, s, l, result) {
+  if (typeof result === 'undefined') {
+    result = { r: 0, g: 0, b: 0 }
+  }
 
-    var i, f, p, q, t;
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = l * (1 - s);
-    q = l * (1 - f * s);
-    t = l * (1 - (1 - f) * s);
-    
-    switch (i % 6) {
-        case 0: result.r = l, result.g = t, result.b = p; break;
-        case 1: result.r = q, result.g = l, result.b = p; break;
-        case 2: result.r = p, result.g = l, result.b = t; break;
-        case 3: result.r = p, result.g = q, result.b = l; break;
-        case 4: result.r = t, result.g = p, result.b = l; break;
-        case 5: result.r = l, result.g = p, result.b = q; break;
-    }
+  var i, f, p, q, t
+  i = Math.floor(h * 6)
+  f = h * 6 - i
+  p = l * (1 - s)
+  q = l * (1 - f * s)
+  t = l * (1 - (1 - f) * s)
 
-    return result;
-};
+  switch (i % 6) {
+    case 0: result.r = l, result.g = t, result.b = p; break
+    case 1: result.r = q, result.g = l, result.b = p; break
+    case 2: result.r = p, result.g = l, result.b = t; break
+    case 3: result.r = p, result.g = q, result.b = l; break
+    case 4: result.r = t, result.g = p, result.b = l; break
+    case 5: result.r = l, result.g = p, result.b = q; break
+  }
+
+  return result
+}
 
 /**
 *   This method converts the template data to a string value for debugging
@@ -479,25 +476,25 @@ Sprite.prototype.hslToRgb = function(h, s, l, result) {
 *   @method toString
 *   @returns {undefined}
 */
-Sprite.prototype.toString = function() {
-    var h = this.height;
-    var w = this.width;
-    var x, y, output = '';
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            var val = this.getData(x, y);
-            output += val >= 0 ? ' ' + val : '' + val;
-        }
-        output += '\n';
+Sprite.prototype.toString = function () {
+  var h = this.height
+  var w = this.width
+  var x; var y; var output = ''
+  for (y = 0; y < h; y++) {
+    for (x = 0; x < w; x++) {
+      var val = this.getData(x, y)
+      output += val >= 0 ? ' ' + val : '' + val
     }
-    return output;
-};
+    output += '\n'
+  }
+  return output
+}
 
 // Pixel Sprite Generator module
 var psg = {
-    version: "v0.0.2",
-    Sprite: Sprite,
-    Mask: Mask
-};
+  version: 'v0.0.2',
+  Sprite: Sprite,
+  Mask: Mask
+}
 
-module.exports = psg;
+module.exports = psg
