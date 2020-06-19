@@ -19,10 +19,8 @@ Usage :
 ```javascript
 const pixelMaker = require('pixel-sprite-generator-nodejs');
 
-pixelMaker.createCreature(function (name) {
-    console.log("file "+name+" created in your app root folder");
+pixelMaker.createCreature(function (name, outputDirectory) {
+    console.log(`file ${outputDirectory}${name} created`);
 });
 
 ```
-
-* You can change the output directory in psg.js : line 422

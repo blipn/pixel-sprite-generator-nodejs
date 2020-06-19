@@ -1,0 +1,8 @@
+sprite
+
+.npmignore
+.gitignore
+.editorconfig
+.idea
+.vscode
+*.spec*

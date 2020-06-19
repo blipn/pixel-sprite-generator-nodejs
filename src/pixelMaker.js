@@ -1,4 +1,4 @@
-const psg = require('./psg.js');
+const psg = require('../src/psg');
 
 var bathingsuittops = new psg.Mask([
     0, 0, 0, 0, 0, 0,
@@ -148,8 +148,13 @@ const empty = new psg.Mask([
 /**
  * Crée une image de créature
  */
-exports.createCreature = function (callback) {
-    let sprite = new psg.Sprite(bug, {
-        colored         : true
-    }, callback);
+exports.createCreature = function (outputDirectory='./sprite/', callback) {
+    let sprite = new psg.Sprite(
+        bug, 
+        {colored: true},
+        outputDirectory, 
+        callback
+    );
 };
+
+
