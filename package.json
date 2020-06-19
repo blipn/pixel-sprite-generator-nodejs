@@ -1,32 +1,41 @@
 {
   "name": "pixel-sprite-generator-nodejs",
-  "version": "0.0.4",
+  "version": "1.0.1",
   "description": "A procedural pixel sprite generator for nodejs",
-  "main": "pixelMaker.js",
-  "private": false,
+  "main": "./src/pixelMaker.js",
   "scripts": {
-    "start": "node index.js"
+    "test": "mocha ./tests",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/blipn/pixel-sprite-generator-nodejs.git"
   },
   "keywords": [
+    "pixel",
     "sprite",
-    "gamedev",
-    "procedural"
+    "generator"
   ],
-  "author": "Quentin Miltgen <contact@goto4ever.com>",
+  "author": "Quentin Miltgen <quentin@miltgen.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/blipn/pixel-sprite-generator-nodejs/issues"
   },
+  "homepage": "https://github.com/blipn/pixel-sprite-generator-nodejs#readme",
   "dependencies": {
-    "canvas": "^1.6.5",
-    "express": "^4.15.3",
-    "path": "^0.12.7",
-    "pngjs": "^3.2.0",
-    "pngjs-image": "^0.11.7",
-    "uuid": "^3.1.0"
+    "pixel-sprite-generator": "0.0.1",
+    "pngjs-image": "^0.11.7"
+  },
+  "devDependencies": {
+    "canvas": "^2.6.1",
+    "chai": "^4.2.0",
+    "chai-files": "^1.4.0",
+    "eslint": "^7.3.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^8.0.1"
   }
 }
