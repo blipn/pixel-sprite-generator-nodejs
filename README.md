@@ -28,7 +28,15 @@ const pixelMaker = require('pixel-sprite-generator-nodejs')
 const outputDirectory = './sprite/'
 
 const sprite = pixelMaker.createCreature(outputDirectory, (name) => {
-        console.log(`file ${outputDirectory}${name} created`)
+        console.log(`Random creature ${outputDirectory}${name} created`)
     });
+
+```
+Or
+
+```javascript
+const dragon = pixelMaker.createCreature(outputDirectory, (name) => {
+        console.log(`Dragon sprite created in ${outputDirectory}${name}`)
+    }, pixelMaker.masks.dragon);
 
 ```

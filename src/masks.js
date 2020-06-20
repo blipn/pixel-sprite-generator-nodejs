@@ -144,3 +144,5 @@ exports.empty = new psg.Mask([
   0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0
 ], 6, 12, true, false)
+
+exports.masks = [this.bug, this.creature, this.dragon, this.face, this.humanoid, this.spaceship, this.bathingsuittops, this.bathingsuitbottoms]

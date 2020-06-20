@@ -1,6 +1,6 @@
 {
   "name": "pixel-sprite-generator-nodejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A procedural pixel sprite generator for nodejs",
   "main": "./src/pixelMaker.js",
   "scripts": {

@@ -6,8 +6,16 @@ const file = chaiFiles.file
 const pixel = require('../src/pixelMaker')
 
 describe('Use pixel', function () {
-  describe('Create png', function () {
-    it('Create a creature and store it as a png', function () {
+  describe('Create bug png', function () {
+    it('Create a bug and store it as a png', function () {
+      const outputDirectory = './sprite/'
+      pixel.createCreature(outputDirectory, (name) => {
+        expect(file(`${outputDirectory}${name}`)).to.exist
+      }, pixel.masks.bug)
+    })
+  })
+  describe('Create random creature png', function () {
+    it('Create a random creature and store it as a png', function () {
       const outputDirectory = './sprite/'
       pixel.createCreature(outputDirectory, (name) => {
         expect(file(`${outputDirectory}${name}`)).to.exist
